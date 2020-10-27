@@ -1,10 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./styles.css";
-import DataList from "../DataList/index";
 import API from "../../utils/API";
 import DataContext from "../../utils/DataContext";
 import Nav from "../Nav/index";
-import Card from '../DataCard'
+import DataCard from '../DataCard'
 
 function DataBody() {
     const [users, setUsers] = useState([]);
@@ -53,7 +52,7 @@ function DataBody() {
                     </table>
                 </div>
                 <div className="col-6">
-                    <Card {...filteredUsers[activeUser]} />
+                    <DataCard {...filteredUsers[activeUser]} />
                 </div>
             </div>
         </DataContext.Provider>
