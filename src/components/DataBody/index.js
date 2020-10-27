@@ -31,7 +31,7 @@ function DataBody() {
                     <table class="table table-striped table-dark">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
+                                <th scope="col">Image</th>
                                 <th scope="col">First</th>
                                 <th scope="col">Last</th>
                                 <th scope="col">Email</th>
@@ -43,7 +43,7 @@ function DataBody() {
                                 return <tr onClick={() => setActiveUser(i)}>
                                     <td><img src={a.picture.thumbnail} /></td>
                                     <td>{a.name.first}</td>
-                                    <td>{a.name.last}</td>
+                                    <td onClick={() => {context.handleSort(name.toLowerCase());}}>{a.name.last}</td>
                                     <td>{a.email}</td>
                                     <td>{a.phone}</td>
                                 </tr>
