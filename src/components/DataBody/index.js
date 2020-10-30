@@ -3,24 +3,36 @@ import API from "../../utils/API";
 import DataContext from "../../utils/DataContext";
 import Nav from "../Nav/index";
 import DataCard from '../DataCard'
+import { filter } from "async";
 
 function DataBody() {
     const [users, setUsers] = useState([]);
     const [filteredUsers, setFilteredUsers] = useState([]);
+    const [sortedUsers, setSortedUsers] = useState({users:[]});
     const [activeUser, setActiveUser] = useState(null);
+    const [inc, setInc] = useState(1);
     const handleSearchChange = val => {
         //do some filtering with value
-        const filtered = users.filter(user => user.name.first.toLowerCase().includes(val) || user.name.last.toLowerCase().includes(val));
+        const filtered = users.filter(user => user.first.toLowerCase().includes(val) || user.last.toLowerCase().includes(val));
         setFilteredUsers(filtered);
+        setSortedUsers({users:filtered})
     }
     useEffect(() => {
         API.getUsers()
             .then(({ data: { results } }) => {
                 console.log(results[0])
-                setUsers(results);
-                setFilteredUsers(results);
+                const newResults = results.map(a => ({...a,first:a.name.first, last:a.name.last}))
+                setFilteredUsers(newResults);
+                setUsers(newResults);
+                setSortedUsers({users:newResults})
             })
     }, [])
+    const handleSort = key => {
+        //do some sort here
+        const sorted = filteredUsers.sort((a,b)=> a[key] < b[key] ? -1*inc : a[key] > b[key] ? 1*inc : 0);
+        setInc(-inc);
+        setSortedUsers({users:sorted})
+    }
     
     return (
         <DataContext.Provider value={{ handleSearchChange }}>
@@ -31,18 +43,18 @@ function DataBody() {
                         <thead>
                             <tr>
                                 <th scope="col">Image</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Phone</th>
+                                <th onClick={()=>handleSort("first")} scope="col">First</th>
+                                <th onClick={()=>handleSort("last")} scope="col">Last</th>
+                                <th onClick={()=>handleSort("email")} scope="col">Email</th>
+                                <th onClick={()=>handleSort("phone")} scope="col">Phone</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredUsers.map((a, i) => {
+                            {sortedUsers.users.map((a, i) => {
                                 return <tr onClick={() => setActiveUser(i)}>
                                     <td><img src={a.picture.thumbnail} /></td>
-                                    <td>{a.name.first}</td>
-                                    <td onClick={() => {context.handleSort(name.toLowerCase());}}>{a.name.last}</td>
+                                    <td>{a.first}</td>
+                                    <td>{a.last}</td>
                                     <td>{a.email}</td>
                                     <td>{a.phone}</td>
                                 </tr>
