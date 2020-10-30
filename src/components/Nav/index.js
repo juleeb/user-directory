@@ -1,6 +1,5 @@
 import React from "react";
 import Search from "../Search/index";
-import "./styles.css";
 
 function Nav ({change}){
     return (

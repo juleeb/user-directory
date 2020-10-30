@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from "react";
-import "./styles.css";
 import API from "../../utils/API";
 import DataContext from "../../utils/DataContext";
 import Nav from "../Nav/index";

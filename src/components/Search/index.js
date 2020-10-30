@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import "./styles.css";
 import DataContext from "../../utils/DataContext.js";
 
 function Search (){
