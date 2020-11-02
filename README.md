@@ -1,4 +1,4 @@
-# employee-directory
+# user-directory
 
 About the project:
 
