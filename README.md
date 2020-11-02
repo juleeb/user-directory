@@ -4,7 +4,7 @@ About the project:
 
 React application for employees to view, search, sort employees.
 
-Screenshot
+Screenshot:
 
 <img src="screenshot.png" width="600" height="400">
 
